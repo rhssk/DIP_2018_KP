@@ -18,6 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
+
 module TOP(
     input CLK_50MHZ,
     input BTN_EAST,
@@ -28,13 +29,32 @@ module TOP(
     output VGA_VSYNC
     );
 
+	/*----------------------------
+		Reset button
+		
+	  ----------------------------
+	*/
 	wire rst = ~BTN_EAST;
+	
+	
+	/*----------------------------
+		Clock divider 50MHz -> 20MHz
+		
+	  ----------------------------
+	*/
 	
 	reg [15:0] cnt;
 	reg px_strobe;
+	
 	always @ (posedge CLK_50MHZ)
 		{px_strobe, cnt} <= cnt + 16'h8000;
 	
+	
+	/*----------------------------
+		Pixel position
+		
+	  ----------------------------
+	*/
 	wire [9:0] x;
 	wire [8:0] y;
 	
@@ -49,5 +69,7 @@ module TOP(
 		.out_x(x),
 		.out_y(y)
 	);
+	
+	
 
 endmodule

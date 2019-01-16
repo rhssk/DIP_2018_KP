@@ -44,41 +44,50 @@ module VGA(
 	reg [9:0] line_pos;  // line position
 	reg [9:0] scr_pos;  // screen position
 	
+	
+	// Generate VH sync
 	assign out_hsync = ~((line_pos >= HS_STA) & (line_pos < HS_END));
    assign out_vsync = ~((scr_pos >= VS_STA) & (scr_pos < VS_END));
 	
+	
+	// X and Y are bound to active pixels area
 	assign out_x = (line_pos < HA_STA) ? 0 : (line_pos - HA_STA);
 	assign out_y = (scr_pos >= VA_END) ? (VA_END - 1) : (scr_pos);
 	
+	
+	// Blanking Interval
 	assign out_blank = ((line_pos < HA_STA) | (scr_pos > VA_END - 1));
 	
+	// Active/Draw interval
 	assign out_active = ~((line_pos < HA_STA) | (scr_pos > VA_END - 1)); 
 	
+	// End of screen tick
 	assign out_scrend = ((scr_pos == SCREEN - 1) & (line_pos == LINE));
 	
+	// Animation tick
 	assign out_anim = ((scr_pos == VA_END - 1) & (line_pos == LINE));
 
 	
 	always @ (posedge i_clk)
 		begin
-        if (in_reset)  // reset to start of frame
-        begin
-            line_pos <= 0;
-            scr_pos <= 0;
-        end
-        if (in_strobe)  // once per pixel
-        begin
-            if (line_pos == LINE)  // end of line
-            begin
-                line_pos <= 0;
-                scr_pos <= scr_pos + 1;
-            end
-            else 
-                line_pos <= line_pos + 1;
+        if (in_reset)  	// Reset frame
+			  begin
+					line_pos <= 0;
+					scr_pos <= 0;
+			  end
+        if (in_strobe)  // Per tick
+			  begin
+					if (line_pos == LINE)  // end of line
+						begin
+							 line_pos <= 0;
+							 scr_pos <= scr_pos + 1;
+						end
+					else 
+						 line_pos <= line_pos + 1;
 
-            if (scr_pos == SCREEN)  // end of screen
-                scr_pos <= 0;
-        end
+					if (scr_pos == SCREEN)  // end of screen
+						 scr_pos <= 0;
+			  end
     end
 
 endmodule
