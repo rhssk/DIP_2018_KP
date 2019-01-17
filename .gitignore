@@ -26,3 +26,6 @@
 
 # Symbols
 !*.sym
+
+# iMPACT
+!*.ipf
