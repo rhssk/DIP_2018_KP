@@ -70,6 +70,11 @@ module TOP(
 		.out_y(y)
 	);
 	
-	
+	// ps2 input goes here:
+	// wire point;
+	// assign point = x...
+	// assign point = y...
+	// 
+	// assign VGA_R[3] = point;
 
 endmodule
