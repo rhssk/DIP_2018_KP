@@ -19,9 +19,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 `default_nettype none
 module TOP(
-    input wire CLK_50MHZ,
-
-    input wire BTN_EAST,
+    input wire CLOCK,
+    input wire RESET,
 
     output wire [3:0] VGA_RED,
     output wire [3:0] VGA_GREEN,
@@ -30,14 +29,6 @@ module TOP(
     output wire VGA_HSYNC,
     output wire VGA_VSYNC
 );
-
-    /*----------------------------
-        Reset button
-
-    ----------------------------
-    */
-    wire rst = ~BTN_EAST;
-
     /*----------------------------
         Clock divider 50MHz -> 25MHz
 
@@ -45,7 +36,7 @@ module TOP(
     */
     reg [15:0] cnt;
     reg stb;
-    always @(posedge CLK_50MHZ)
+    always @(posedge CLOCK)
         {stb, cnt} <= cnt + 16'h8000;
 
     /*----------------------------
@@ -57,9 +48,9 @@ module TOP(
     wire [8:0] y;
 
     VGA display (
-        .in_clock(CLK_50MHZ),
+        .in_clock(CLOCK),
         .in_strobe(stb),
-        .in_reset(rst),
+        .in_reset(RESET),
         .out_hsync(VGA_HSYNC),
         .out_vsync(VGA_VSYNC),
         .out_x(x),
