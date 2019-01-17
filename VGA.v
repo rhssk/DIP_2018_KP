@@ -1,4 +1,4 @@
-
+`default_nettype none
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -30,7 +30,6 @@ module VGA(
     output wire out_blank,   // blanking interval  
     output wire out_active,  // visible image data/signal
     output wire out_screen,    
-    output wire out_anim,  
     
     output wire [9:0] out_x,   
     output wire [8:0] out_y    
@@ -65,9 +64,6 @@ module VGA(
 
 	// End of screen tick
     assign out_screen = ((pixpos == SCREEN - 1) & (linepos == LINE));
-
-	// Animation tick
-    assign out_anim = ((pixpos == VA_END - 1) & (linepos == LINE));
 
     always @ (posedge in_clock)
 		 begin
