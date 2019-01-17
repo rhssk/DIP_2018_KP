@@ -1,89 +1,71 @@
 `default_nettype none
-//////////////////////////////////////////////////////////////////////////////////
-// Company:
-// Engineer:
-//
-// Create Date:    16:29:22 01/16/2019
-// Design Name:
-// Module Name:    TOP
-// Project Name:   DIP 2018/19
-// Target Devices:
-// Tool versions:
-// Description:    VGA component for DIP 2k18
-//
-// Dependencies:
-//
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-//
-//////////////////////////////////////////////////////////////////////////////////
 
 module VGA(
     input wire in_clock,
     input wire in_strobe,
     input wire in_reset,
-
     output wire out_hsync,
     output wire out_vsync,
-
-    output wire out_blank,   // blanking interval
-    output wire out_active,  // visible image data/signal
-    output wire out_screen,
-
+    output wire out_blanking,
+    output wire out_active,
+    output wire out_screenend,
+    output wire out_animate,
     output wire [9:0] out_x,
     output wire [8:0] out_y
 );
 
-    localparam HS_STA = 16;           // Skat�t DIP VGA dokumentu
-    localparam HS_END = 16 + 96;
-    localparam HA_STA = 16 + 96 + 48;
-    localparam VS_STA = 480 + 11;
-    localparam VS_END = 480 + 11 + 2;
-    localparam VA_END = 480;
-    localparam LINE   = 800;
-    localparam SCREEN = 524;
+    localparam HS_STA = 16;              // H-sync starts
+    localparam HS_END = 16 + 96;         // H-sync ends
+    localparam HA_STA = 16 + 96 + 48;    // H-pixels start
 
-    reg [9:0] linepos;
-    reg [9:0] pixpos;
+    localparam VS_STA = 480 + 11;        // V-sync starts
+    localparam VS_END = 480 + 11 + 2;    // V-sync ends
+    localparam VA_END = 480;             // V-pixels end
+    localparam LINE   = 800;             // end of line
+    localparam SCREEN = 524;             // end of screen
 
+    reg [9:0] pos_line;     // line position
+    reg [9:0] pos_screen;  // screen position
 
-    // Generate VH sync
-    assign out_hsync = ~((linepos >= HS_STA) & (linepos < HS_END));
-    assign out_vsync = ~((pixpos >= VS_STA) & (pixpos < VS_END));
+    // Generate sync signals
+    assign out_hsync = ~((pos_line >= HS_STA) & (pos_line < HS_END));
+    assign out_vsync = ~((pos_screen >= VS_STA) & (pos_screen < VS_END));
 
-    // X and Y are bound to active pixels area
-    assign out_x = (linepos < HA_STA) ? 0 : (linepos - HA_STA);
-    assign out_y = (pixpos >= VA_END) ? (VA_END - 1) : (pixpos);
+    // X and Y must NOT go outside the PIXELS domain
+    assign out_x = (pos_line < HA_STA) ? 0 : (pos_line - HA_STA);
+    assign out_y = (pos_screen >= VA_END) ? (VA_END - 1) : (pos_screen);
 
-    // Blanking Interval
-    assign out_blank = ((linepos < HA_STA) | (pixpos > VA_END - 1));
+    // Blanking interval
+    assign out_blanking = ((pos_line < HA_STA) | (pos_screen > VA_END - 1));
 
-    // Active/Draw interval for visible image signal
-    assign out_active = ~((linepos < HA_STA) | (pixpos > VA_END - 1));
+    // Draw pixels
+    assign out_active = ~((pos_line < HA_STA) | (pos_screen > VA_END - 1));
 
-    // End of screen tick
-    assign out_screen = ((pixpos == SCREEN - 1) & (linepos == LINE));
+    // Screenend
+    assign out_screenend = ((pos_screen == SCREEN - 1) & (pos_line == LINE));
+
+    // More tearing prevention
+    assign out_animate = ((pos_screen == VA_END - 1) & (pos_line == LINE));
 
     always @ (posedge in_clock)
     begin
-        if (in_reset)  // reset frame
+        if (in_reset)  // Reset frame
         begin
-            linepos <= 0;
-            pixpos <= 0;
+            pos_line <= 0;
+            pos_screen <= 0;
         end
-        if (in_strobe)  // per 40ns tick
+        if (in_strobe)  // Per 40ns tick
         begin
-            if (linepos == LINE)
+            if (pos_line == LINE)
             begin
-                linepos <= 0;
-                pixpos <= pixpos + 1;
+                pos_line <= 0;
+                pos_screen <= pos_screen + 1;
             end
             else
-                linepos <= linepos + 1;
+                pos_line <= pos_line + 1;
 
-            if (pixpos == SCREEN)
-                pixpos <= 0;
+            if (pos_screen == SCREEN)
+                pos_screen <= 0;
         end
     end
 endmodule
