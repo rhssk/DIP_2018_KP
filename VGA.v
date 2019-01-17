@@ -34,10 +34,12 @@ module VGA(
 	 
 	localparam HS_STA = 16;             
 	localparam HS_END = 16 + 96;        
-	localparam HA_STA = 16 + 96 + 48;   
+	localparam HA_STA = 16 + 96 + 48;  
+	
 	localparam VS_STA = 480 + 11;       
 	localparam VS_END = 480 + 11 + 2;   
-	localparam VA_END = 480;            
+	localparam VA_END = 480;    
+	
 	localparam LINE   = 800;            
 	localparam SCREEN = 524;            
 
@@ -68,7 +70,7 @@ module VGA(
 	assign out_anim = ((scr_pos == VA_END - 1) & (line_pos == LINE));
 
 	
-	always @ (posedge i_clk)
+	always @ (posedge in_clock)
 		begin
         if (in_reset)  	// Reset frame
 			  begin

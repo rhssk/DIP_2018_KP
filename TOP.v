@@ -70,11 +70,14 @@ module TOP(
 		.out_y(y)
 	);
 	
-	// ps2 input goes here:
-	// wire point;
-	// assign point = x...
-	// assign point = y...
-	// 
-	// assign VGA_R[3] = point;
+    wire sq_a, sq_b, sq_c, sq_d;
+    assign sq_a = ((x > 120) & (y >  40) & (x < 280) & (y < 200)) ? 1 : 0;
+    assign sq_b = ((x > 200) & (y > 120) & (x < 360) & (y < 280)) ? 1 : 0;
+    assign sq_c = ((x > 280) & (y > 200) & (x < 440) & (y < 360)) ? 1 : 0;
+    assign sq_d = ((x > 360) & (y > 280) & (x < 520) & (y < 440)) ? 1 : 0;
+
+    assign VGA_R[3] = sq_b;         // square b is red
+    assign VGA_G[3] = sq_a | sq_d;  // squares a and d are green
+    assign VGA_B[3] = sq_c;         // square c is blue
 
 endmodule
