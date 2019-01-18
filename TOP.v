@@ -7,6 +7,11 @@ module TOP(
     input wire PS2_CLOCK,
     input wire PS2_DATA,
 
+    input wire BTN_UP,
+    input wire BTN_DOWN,
+    input wire BTN_LEFT,
+    input wire BTN_RIGHT,
+
     output wire VGA_HSYNC,
     output wire VGA_VSYNC,
     output wire VGA_RED,
@@ -17,7 +22,7 @@ module TOP(
     localparam PIX_WIDTH_HALF = 320;
     localparam PIX_HEIGHT = 480;        // Screen height in pixels
     localparam PIX_HEIGHT_HALF = 240;
-    localparam PIX_STEP = 10;           // Length of a movement in pixels
+    localparam PIX_STEP = 3;            // Length of a movement in pixels
     localparam BOX_WIDTH_HALF = 90;     // Half of moving box width
     localparam BOX_HEIGHT_HALF = 90;    // Half of moving box height
 
@@ -31,6 +36,7 @@ module TOP(
     reg [8:0] moving_y_top;
 
     wire [7:0] kbd_code;
+    reg [7:0] fake_kbd_code; // TODO: remove after testing
     reg pix_stb;
 
     /* Divides clock in half (50MHz -> 25 MHz) */
@@ -67,9 +73,20 @@ module TOP(
             moving_y_top <= PIX_HEIGHT_HALF + BOX_HEIGHT_HALF;
         end
 
+        if (BTN_UP)
+            fake_kbd_code <= 8'h1D;
+        else if (BTN_LEFT)
+            fake_kbd_code <= 8'h1C;
+        else if (BTN_DOWN)
+            fake_kbd_code <= 8'h1B;
+        else if (BTN_RIGHT)
+            fake_kbd_code <= 8'h23;
+        else
+            fake_kbd_code <= 8'h0;
+
         // Move the box around with WASD keys and wrap to the opposite side if
         // the screen edge has been reached
-        case (kbd_code)
+        case (fake_kbd_code) // TODO: switch to the real kbd_code after testing
             8'h1D: // 'W'
                 begin
                     if (moving_y_bottom < PIX_HEIGHT - PIX_STEP)
