@@ -41,7 +41,7 @@
             <line x2="64" y1="-48" y2="-144" x1="64" />
         </blockdef>
         <blockdef name="TOP">
-            <timestamp>2019-1-18T5:15:20</timestamp>
+            <timestamp>2019-1-18T5:39:49</timestamp>
             <rect width="304" x="64" y="-320" height="320" />
             <line x2="0" y1="-288" y2="-288" x1="64" />
             <line x2="0" y1="-208" y2="-208" x1="64" />
@@ -58,7 +58,7 @@
             <blockpin signalname="SW_0" name="I1" />
             <blockpin signalname="LED_0" name="O" />
         </block>
-        <block symbolname="TOP" name="XLXI_3">
+        <block symbolname="TOP" name="XLXI_4">
             <blockpin signalname="CLK_50MHZ" name="CLOCK" />
             <blockpin signalname="BTN_EAST" name="RESET" />
             <blockpin signalname="PS2_CLK" name="PS2_CLOCK" />
@@ -109,8 +109,6 @@
             <wire x2="2112" y1="1888" y2="1888" x1="2096" />
         </branch>
         <iomarker fontsize="28" x="2112" y="1888" name="VGA_HSYNC" orien="R0" />
-        <instance x="1648" y="2176" name="XLXI_3" orien="R0">
-        </instance>
         <branch name="CLK_50MHZ">
             <wire x2="1648" y1="1888" y2="1888" x1="1616" />
         </branch>
@@ -128,5 +126,7 @@
             <wire x2="1648" y1="2128" y2="2128" x1="1616" />
         </branch>
         <iomarker fontsize="28" x="1616" y="2128" name="PS2_DATA" orien="R180" />
+        <instance x="1648" y="2176" name="XLXI_4" orien="R0">
+        </instance>
     </sheet>
 </drawing>

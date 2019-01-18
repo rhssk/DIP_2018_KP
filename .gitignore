@@ -8,17 +8,11 @@
 # Source files
 !*.v
 
-# Testbenches
-!/tb/
-!/tb/*.vhd
-
 # Schematics
-!/sch/
-!/sch/*.sch
+!*.sch
 
 # Constraints
-!/constraints/
-!/constraints/*.ucf
+!*.ucf
 
 # Project file
 !*.xise
