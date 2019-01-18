@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <symbol version="7" name="TOP">
     <symboltype>BLOCK</symboltype>
-    <timestamp>2019-1-17T23:40:3</timestamp>
+    <timestamp>2019-1-18T2:12:29</timestamp>
     <attr value="TOP" name="VeriModel" />
-    <pin polarity="Input" x="0" y="-288" name="CLOCK" />
-    <pin polarity="Input" x="0" y="-32" name="RESET" />
-    <pin polarity="Output" x="384" y="-288" name="VGA_HSYNC" />
-    <pin polarity="Output" x="384" y="-224" name="VGA_VSYNC" />
-    <pin polarity="Output" x="384" y="-160" name="VGA_RED" />
-    <pin polarity="Output" x="384" y="-96" name="VGA_GREEN" />
-    <pin polarity="Output" x="384" y="-32" name="VGA_BLUE" />
+    <pin polarity="Input" x="0" y="-352" name="CLOCK" />
+    <pin polarity="Input" x="0" y="-256" name="RESET" />
+    <pin polarity="Input" x="0" y="-160" name="PS2_CLOCK" />
+    <pin polarity="Input" x="0" y="-64" name="PS2_DATA" />
+    <pin polarity="Output" x="464" y="-352" name="VGA_HSYNC" />
+    <pin polarity="Output" x="464" y="-288" name="VGA_VSYNC" />
+    <pin polarity="Output" x="464" y="-224" name="VGA_RED" />
+    <pin polarity="Output" x="464" y="-160" name="VGA_GREEN" />
+    <pin polarity="Output" x="464" y="-96" name="VGA_BLUE" />
+    <pin polarity="Output" x="464" y="-32" name="KBD_TEST_LED" />
     <graph>
-        <rect width="256" x="64" y="-320" height="320" />
-        <attrtext style="alignment:BCENTER;fontsize:56;fontname:Arial" attrname="SymbolName" x="192" y="-328" type="symbol" />
-        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-288" type="pin CLOCK" />
-        <line x2="0" y1="-288" y2="-288" x1="64" />
-        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-32" type="pin RESET" />
-        <line x2="0" y1="-32" y2="-32" x1="64" />
-        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="312" y="-288" type="pin VGA_HSYNC" />
-        <line x2="384" y1="-288" y2="-288" x1="320" />
-        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="312" y="-224" type="pin VGA_VSYNC" />
-        <line x2="384" y1="-224" y2="-224" x1="320" />
-        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="312" y="-160" type="pin VGA_RED" />
-        <line x2="384" y1="-160" y2="-160" x1="320" />
-        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="312" y="-96" type="pin VGA_GREEN" />
-        <line x2="384" y1="-96" y2="-96" x1="320" />
-        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="312" y="-32" type="pin VGA_BLUE" />
-        <line x2="384" y1="-32" y2="-32" x1="320" />
+        <rect width="336" x="64" y="-384" height="384" />
+        <attrtext style="alignment:BCENTER;fontsize:56;fontname:Arial" attrname="SymbolName" x="232" y="-392" type="symbol" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-352" type="pin CLOCK" />
+        <line x2="0" y1="-352" y2="-352" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-256" type="pin RESET" />
+        <line x2="0" y1="-256" y2="-256" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-160" type="pin PS2_CLOCK" />
+        <line x2="0" y1="-160" y2="-160" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-64" type="pin PS2_DATA" />
+        <line x2="0" y1="-64" y2="-64" x1="64" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="392" y="-352" type="pin VGA_HSYNC" />
+        <line x2="464" y1="-352" y2="-352" x1="400" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="392" y="-288" type="pin VGA_VSYNC" />
+        <line x2="464" y1="-288" y2="-288" x1="400" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="392" y="-224" type="pin VGA_RED" />
+        <line x2="464" y1="-224" y2="-224" x1="400" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="392" y="-160" type="pin VGA_GREEN" />
+        <line x2="464" y1="-160" y2="-160" x1="400" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="392" y="-96" type="pin VGA_BLUE" />
+        <line x2="464" y1="-96" y2="-96" x1="400" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="392" y="-32" type="pin KBD_TEST_LED" />
+        <line x2="464" y1="-32" y2="-32" x1="400" />
     </graph>
 </symbol>

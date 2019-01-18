@@ -6,8 +6,7 @@
 !README.md
 
 # Source files
-!/vhdl/
-!/vhdl/*.vhd
+!*.v
 
 # Testbenches
 !/tb/

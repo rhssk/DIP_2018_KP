@@ -4,6 +4,7 @@ module VGA(
     input wire in_clock,
     input wire in_strobe,
     input wire in_reset,
+
     output wire out_hsync,
     output wire out_vsync,
     output wire out_blanking,
@@ -24,8 +25,8 @@ module VGA(
     localparam LINE   = 800;             // end of line
     localparam SCREEN = 524;             // end of screen
 
-    reg [9:0] pos_line;     // line position
-    reg [9:0] pos_screen;  // screen position
+    reg [9:0] pos_line;                  // line position
+    reg [9:0] pos_screen;                // screen position
 
     // Generate sync signals
     assign out_hsync = ~((pos_line >= HS_STA) & (pos_line < HS_END));
