@@ -24,19 +24,20 @@ module PS2(
         case (received_bytes)
             4'd0: // '0' start bit
                 begin
+                    code <= 0;
                     if (ps2_data)
                     begin
-                        code <= 0;
                         skip <= 1;
                     end
                 end
-            /* 4'd1, 4'd2, 4'd3, 4'd4, 4'd5, 4'd6, 4'd7, 4'd8: // Data bits */
-            /*     begin */
-            /*         if (!skip) */
-            /*             code[received_bytes - 1] <= ps2_data; */
-            /*     end */
+            4'd1, 4'd2, 4'd3, 4'd4, 4'd5, 4'd6, 4'd7, 4'd8: // Data bits
+                begin
+                    if (!skip)
+                        code[received_bytes - 1] <= ps2_data;
+                end
             4'd9: // Parity bit
                 begin
+                    // Check odd parity
                     if ((code[0] + code[1] + code[2] + code[3] + code[4] + code[5] + code[6] + code[7]) != ps2_data)
                         code <= 0;
                 end
@@ -44,11 +45,11 @@ module PS2(
                 begin
                     if (!ps2_data)
                         code <= 0;
-                    keyboard_code <= code;
 
                     // Prepare for the next packet
                     received_bytes <= 0;
                     skip <= 1;
+                    keyboard_code <= code;
                 end
         endcase
 
@@ -56,6 +57,5 @@ module PS2(
             skip <= 0;
         else
             received_bytes <= received_bytes + 1;
-        keyboard_code <= 0;
     end
 endmodule
